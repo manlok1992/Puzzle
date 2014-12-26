@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Clone : MonoBehaviour {
-	GameObject[,] puzzles;
+	static public GameObject[,] puzzles;
 	static readonly int ballNum = 4;
 	public GameObject[] prefab;
 	int[,] randomIndex;
@@ -11,8 +11,12 @@ public class Clone : MonoBehaviour {
 		puzzles = new GameObject[ballNum,ballNum];
 		for(int i = 0; i < ballNum; i++) {
 			for(int j = 0; j < ballNum; j++) {	
-				var ball = GameObject.Instantiate(prefab[randomBall(i,j)], new Vector3(-3+i, -3+j, 0), Quaternion.identity);
+				var ball = (GameObject)GameObject.Instantiate(prefab[randomBall(i,j)], new Vector3(-3+i, -3+j, 0), Quaternion.identity);
 				puzzles[i,j] = (GameObject)ball;
+				ball.name = "ball "+i.ToString()+"-"+j.ToString();
+				TouchEvent temp = (TouchEvent)puzzles[i,j].GetComponent("TouchEvent");
+				temp.row = j;
+				temp.column = i;
 			}
 		}
 	}
