@@ -52,8 +52,6 @@ public class TouchEvent : MonoBehaviour {
 			Vector3 tempPos = gameObject.transform.position;
 			gameObject.transform.position = Clone.puzzles[column-1, row].transform.position;
 			Clone.puzzles[column-1, row].transform.position = tempPos;
-			print ("move "+gameObject.name);
-			print ("be move "+tempObj.gameObject.name);
 			GameObject tempMove = gameObject;
 			GameObject tempBeMove = tempObj.gameObject;
 			column--;
@@ -72,8 +70,6 @@ public class TouchEvent : MonoBehaviour {
 			Vector3 tempPos = gameObject.transform.position;
 			gameObject.transform.position = Clone.puzzles[column+1, row].transform.position;
 			Clone.puzzles[column+1, row].transform.position = tempPos;
-			print ("move "+gameObject.name);
-			print ("be move "+tempObj.gameObject.name);
 			GameObject tempMove = gameObject;
 			GameObject tempBeMove = tempObj.gameObject;
 			column++;
@@ -91,8 +87,6 @@ public class TouchEvent : MonoBehaviour {
 			Vector3 tempPos = gameObject.transform.position;
 			gameObject.transform.position = Clone.puzzles[column, row+1].transform.position;
 			Clone.puzzles[column, row+1].transform.position = tempPos;
-			print ("move "+gameObject.name);
-			print ("be move "+tempObj.gameObject.name);
 			GameObject tempMove = gameObject;
 			GameObject tempBeMove = tempObj.gameObject;
 			row++;
@@ -110,8 +104,6 @@ public class TouchEvent : MonoBehaviour {
 			Vector3 tempPos = gameObject.transform.position;
 			gameObject.transform.position = Clone.puzzles[column, row-1].transform.position;
 			Clone.puzzles[column, row-1].transform.position = tempPos;
-			print ("move "+gameObject.name);
-			print ("be move "+tempObj.gameObject.name);
 			GameObject tempMove = gameObject;
 			GameObject tempBeMove = tempObj.gameObject;
 			row--;
