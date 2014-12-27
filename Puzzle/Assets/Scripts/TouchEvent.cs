@@ -24,14 +24,20 @@ public class TouchEvent : MonoBehaviour {
 			if(Input.GetAxis("Mouse X") > 0.3) {
 				//Right
 				dir = Direction.RIGHT;
+				if(!isMove)
+					moveRight();
 			}
 			if(Input.GetAxis("Mouse Y") < -0.3) {
 				//Down
 				dir = Direction.DOWN;
+				if(!isMove)
+					moveDown();
 			}
 			if(Input.GetAxis("Mouse Y") > 0.3) {
 				//Up
 				dir = Direction.UP;
+				if(!isMove)
+					moveUp();
 			}
 			if(Input.GetAxis("Mouse X") < 0.3 && Input.GetAxis("Mouse X") > -0.3 && 
 			   Input.GetAxis("Mouse Y") < 0.3 && Input.GetAxis("Mouse Y") > -0.3) {
@@ -48,28 +54,73 @@ public class TouchEvent : MonoBehaviour {
 			Clone.puzzles[column-1, row].transform.position = tempPos;
 			print ("move "+gameObject.name);
 			print ("be move "+tempObj.gameObject.name);
-			gameObject.name = "ball "+column.ToString()+"-"+row.ToString();
-			tempObj.gameObject.name = "ball "+tempObj.column.ToString()+"-"+tempObj.row.ToString();
+			GameObject tempMove = gameObject;
+			GameObject tempBeMove = tempObj.gameObject;
 			column--;
 			tempObj.column++;
-			GameObject temp = Clone.puzzles[column-1, row];
-			Clone.puzzles[column-1, row] = gameObject;
-			Clone.puzzles[column, row] = temp;
+
+			Clone.puzzles[column+1, row] = tempBeMove;
+			Clone.puzzles[column, row] = tempMove;
 			isMove = true;
 		}
 	}
 
 	
 	void moveRight() {
-		
+		if(column != Clone.ballNum-1) {
+			TouchEvent tempObj = (TouchEvent)Clone.puzzles[column+1, row].GetComponent("TouchEvent");
+			Vector3 tempPos = gameObject.transform.position;
+			gameObject.transform.position = Clone.puzzles[column+1, row].transform.position;
+			Clone.puzzles[column+1, row].transform.position = tempPos;
+			print ("move "+gameObject.name);
+			print ("be move "+tempObj.gameObject.name);
+			GameObject tempMove = gameObject;
+			GameObject tempBeMove = tempObj.gameObject;
+			column++;
+			tempObj.column--;
+			
+			Clone.puzzles[column-1, row] = tempBeMove;
+			Clone.puzzles[column, row] = tempMove;
+			isMove = true;
+		}
 	}
 	
 	void moveUp() {
-		
+		if(row != Clone.ballNum-1) {
+			TouchEvent tempObj = (TouchEvent)Clone.puzzles[column, row+1].GetComponent("TouchEvent");
+			Vector3 tempPos = gameObject.transform.position;
+			gameObject.transform.position = Clone.puzzles[column, row+1].transform.position;
+			Clone.puzzles[column, row+1].transform.position = tempPos;
+			print ("move "+gameObject.name);
+			print ("be move "+tempObj.gameObject.name);
+			GameObject tempMove = gameObject;
+			GameObject tempBeMove = tempObj.gameObject;
+			row++;
+			tempObj.row--;
+			
+			Clone.puzzles[column, row-1] = tempBeMove;
+			Clone.puzzles[column, row] = tempMove;
+			isMove = true;
+		}
 	}
 	
 	void moveDown() {
-		
+		if(row != 0) {
+			TouchEvent tempObj = (TouchEvent)Clone.puzzles[column, row-1].GetComponent("TouchEvent");
+			Vector3 tempPos = gameObject.transform.position;
+			gameObject.transform.position = Clone.puzzles[column, row-1].transform.position;
+			Clone.puzzles[column, row-1].transform.position = tempPos;
+			print ("move "+gameObject.name);
+			print ("be move "+tempObj.gameObject.name);
+			GameObject tempMove = gameObject;
+			GameObject tempBeMove = tempObj.gameObject;
+			row--;
+			tempObj.row++;
+			
+			Clone.puzzles[column, row+1] = tempBeMove;
+			Clone.puzzles[column, row] = tempMove;
+			isMove = true;
+		}
 	}
 
 	void OnMouseDown() { 
