@@ -7,6 +7,9 @@ public class TouchEvent : MonoBehaviour {
 	Direction dir;
 	public int column, row;
 	public bool isMove = false;
+	static int destroyCount = 0;
+	static string moveName = "";
+	static string beMoveName = "";
 	// Use this for initialization
 	void Start () {
 		dir = Direction.NONE;
@@ -60,6 +63,9 @@ public class TouchEvent : MonoBehaviour {
 			Clone.puzzles[column+1, row] = tempBeMove;
 			Clone.puzzles[column, row] = tempMove;
 			isMove = true;
+			moveName = tempMove.tag;
+			beMoveName = tempBeMove.tag;
+			Match(Direction.LEFT);
 		}
 	}
 
@@ -78,6 +84,9 @@ public class TouchEvent : MonoBehaviour {
 			Clone.puzzles[column-1, row] = tempBeMove;
 			Clone.puzzles[column, row] = tempMove;
 			isMove = true;
+			moveName = tempMove.tag;
+			beMoveName = tempBeMove.tag;
+			Match(Direction.RIGHT);
 		}
 	}
 	
@@ -95,6 +104,9 @@ public class TouchEvent : MonoBehaviour {
 			Clone.puzzles[column, row-1] = tempBeMove;
 			Clone.puzzles[column, row] = tempMove;
 			isMove = true;
+			moveName = tempMove.tag;
+			beMoveName = tempBeMove.tag;
+			Match(Direction.UP);
 		}
 	}
 	
@@ -112,6 +124,9 @@ public class TouchEvent : MonoBehaviour {
 			Clone.puzzles[column, row+1] = tempBeMove;
 			Clone.puzzles[column, row] = tempMove;
 			isMove = true;
+			moveName = tempMove.tag;
+			beMoveName = tempBeMove.tag;
+			Match(Direction.DOWN);
 		}
 	}
 
@@ -122,5 +137,69 @@ public class TouchEvent : MonoBehaviour {
 	void OnMouseUp() {
 		isTouchDown = false;
 		isMove = false;
+	}
+
+	void Match(Direction tempDir) {
+		GameObject[,] temp = Clone.puzzles;
+		if(tempDir == Direction.DOWN) {
+			GameObject tempMove = temp[column, row];
+			GameObject tempBeMove = temp[column, row+1];
+			if(column != 0 && column != Clone.ballNum-1) {
+				if(temp[column, row].tag == temp[column-1, row].tag && temp[column+1, row].tag == temp[column, row].tag) {
+					temp[column, row].SetActive(false);
+					temp[column-1, row].SetActive(false);
+					temp[column+1, row].SetActive(false);
+				}
+				if(tempBeMove.tag == temp[column-1, row+1].tag && temp[column+1, row+1].tag == tempBeMove.tag) {
+					tempBeMove.SetActive(false);
+					temp[column-1, row+1].SetActive(false);
+					temp[column+1, row+1].SetActive(false);
+				}
+			}
+			if(column > 1) {
+				if(temp[column, row].tag == temp[column-1, row].tag && temp[column-2, row].tag == temp[column, row].tag) {
+					temp[column, row].SetActive(false);
+					temp[column-1, row].SetActive(false);
+					temp[column-2, row].SetActive(false);
+				}
+				if(tempBeMove.tag == temp[column-1, row+1].tag && temp[column-2, row+1].tag == tempBeMove.tag) {
+					tempBeMove.SetActive(false);
+					temp[column-1, row+1].SetActive(false);
+					temp[column-2, row+1].SetActive(false);
+				}
+			}
+			if(column < Clone.ballNum-2) {
+				if(temp[column, row].tag == temp[column+1, row].tag && temp[column+2, row].tag == temp[column, row].tag) {
+					temp[column, row].SetActive(false);
+					temp[column+1, row].SetActive(false);
+					temp[column+2, row].SetActive(false);
+				}
+				if(tempBeMove.tag == temp[column+1, row+1].tag && temp[column+2, row+1].tag == tempBeMove.tag) {
+					tempBeMove.SetActive(false);
+					temp[column+1, row+1].SetActive(false);
+					temp[column+2, row+1].SetActive(false);
+				}
+			}
+		}
+		if(tempDir == Direction.UP) {
+
+		}
+
+//		for(int n = 0; n < Clone.ballNum; n++) {
+//			for(int k = 0; k < Clone.ballNum; k++) {
+//				TouchEvent eventF = (TouchEvent)Clone.puzzles[n, k].GetComponent("TouchEvent");
+//				for(int i = 0; i < Clone.ballNum; i++) {
+//					for(int j = 0; j < Clone.ballNum; j++) {
+//						TouchEvent eventT = (TouchEvent)Clone.puzzles[i, j].GetComponent("TouchEvent");
+//						if(eventT.column-1 == eventF.column && eventF.row == eventT.row && eventF.gameObject.tag == eventT.gameObject.tag) {
+//							eventT.gameObject.SetActive(false);
+//							eventF.gameObject.SetActive(false);
+//							destroyCount++;
+//							print ("F "+destroyCount);
+//						}        
+//					}
+//				}
+//			}
+//		}
 	}
 }
