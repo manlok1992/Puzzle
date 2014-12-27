@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TouchEvent.cs">
     <Files>
-      <File FileName="Assets\Scripts\Clone.cs" Line="25" Column="30" />
-      <File FileName="Assets\Scripts\TouchEvent.cs" Line="55" Column="13" />
+      <File FileName="Assets\Scripts\TouchEvent.cs" Line="157" Column="44" />
+      <File FileName="Assets\Scripts\Clone.cs" Line="25" Column="39" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
