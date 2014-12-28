@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Clone : MonoBehaviour {
 	static public GameObject[,] puzzles;
-	static public readonly int ballNum = 4;
+	static public readonly int ballNum = 8;
 	public GameObject[] prefab;
 	int[,] randomIndex;
 	// Use this for initialization
